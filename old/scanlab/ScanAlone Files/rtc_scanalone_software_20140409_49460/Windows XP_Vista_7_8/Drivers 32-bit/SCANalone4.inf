@@ -1,0 +1,131 @@
+;
+; SCANalone4.INF
+;
+; Installation inf for the SCANLAB SCANalone4 Card
+;
+; Copyright (c) 2003, SCANLAB AG
+;
+
+[Version]
+Signature="$CHICAGO$"
+Provider=%S_Provider%
+DriverVer=01/31/2003,2.0.0.0
+Class=SCANLAB
+ClassGUID={D6797410-1514-11d4-BBA5-0050DA39AF40}
+
+[ClassInstall] 
+AddReg=AddReg_ClassInstall
+
+[ClassInstall32] 
+AddReg=AddReg_ClassInstall
+
+[AddReg_ClassInstall]
+HKR,,,,"%S_DeviceClassDisplayName%"
+HKR,,Icon,,-5
+
+[Manufacturer]
+%S_Mfg%=Devices
+
+[Devices]
+%S_DeviceDesc%=Install, USB\Vid_0451&Pid_9001&Rev_0505
+
+[Install]
+CopyFiles=CopyFiles_sys_98
+AddReg=AddReg_SW, AddReg_98, Parameters_98
+
+[Install.HW]
+AddReg=AddReg_HW
+
+[Install.NTx86]
+CopyFiles=CopyFiles_sys
+AddReg=AddReg_SW, Parameters_NT
+
+[Install.NTx86.Services]
+AddService = %S_DriverName%, 0x00000002, NT_AddService, NT_EventLog
+
+[Install.NTx86.HW]
+AddReg=AddReg_HW
+
+[NT_AddService]
+DisplayName    = %S_ServiceDisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %10%\System32\Drivers\%S_DriverName%.sys
+
+[NT_EventLog]
+AddReg=NT_EventLog_AddReg
+
+[NT_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\%S_DriverName%.sys"
+HKR,,TypesSupported,  0x00010001,7
+
+[AddReg_98]
+HKR,,NTMPDriver,,%S_DriverName_98%.sys
+HKR,,DevLoader,,*ntkern
+
+[AddReg_SW]
+HKLM,"%S_ConfigPath%",,,
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",,,
+
+[AddReg_HW]
+HKR,,DriverConfigurationPath,,\Registry\Machine\%S_ConfigPath%\%S_DeviceConfigPath%
+HKR,,CleanupWizard_DeviceIdentString,,"{DAB6A146-D93E-48ab-B3E5-374AB8FFF277}"
+HKR,,DriverUserInterfaceGuid,,"{A0DA6B84-F505-4b82-A370-F2915B076EC7}"
+
+[Parameters_98]
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",PowerStateOnOpen,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",PowerStateOnClose,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MinPowerStateUsed,0x00010001, 2
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MinPowerStateUnused,0x00010001, 3
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",EnableRemoteWakeup,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",AbortPipesOnPowerDown,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",UnconfigureOnClose,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",ResetDeviceOnClose,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MaxIsoPackets,0x00010001, 64
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",ShortTransferOk,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",RequestTimeout,0x00010001, 1000
+
+[Parameters_NT]
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",PowerStateOnOpen,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",PowerStateOnClose,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MinPowerStateUsed,0x00010001, 2
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MinPowerStateUnused,0x00010001, 3
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",EnableRemoteWakeup,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",AbortPipesOnPowerDown,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",UnconfigureOnClose,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",ResetDeviceOnClose,0x00010001, 0
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",MaxIsoPackets,0x00010001, 512
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",ShortTransferOk,0x00010001, 1
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",RequestTimeout,0x00010001, 1000
+HKLM,"%S_ConfigPath%"\"%S_DeviceConfigPath%",SuppressPnPRemoveDlg,0x00010001, 1
+
+[CopyFiles_sys_98]
+SLUSB98.sys
+
+[CopyFiles_sys]
+SLUSBWDM.sys
+
+[DestinationDirs]
+DefaultDestDir = 11
+CopyFiles_sys_98 = 10,System32\Drivers
+CopyFiles_sys = 10,System32\Drivers
+
+[SourceDisksNames]
+1=%S_DiskName%,,
+
+[SourceDisksFiles]
+SLUSB98.sys=1
+SLUSBWDM.sys=1
+
+[Strings]
+S_Provider="SCANLAB AG"
+S_Mfg="SCANLAB AG"
+S_DeviceClassDisplayName="SCANLAB"
+S_DeviceDesc="SCANLAB USB SCANalone4 : Real Time Scanner Controller"
+S_DiskName="SCANalone4 Disk"
+S_DriverName_98="SLUSB98"
+S_DriverName="SLUSBWDM"
+S_ServiceDisplayName="SCANalone4 Driver"
+S_ConfigPath="SYSTEM\CurrentControlSet\Services\SLUSB"
+S_DeviceConfigPath="Parameters"

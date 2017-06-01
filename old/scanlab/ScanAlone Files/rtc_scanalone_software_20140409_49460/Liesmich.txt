@@ -1,0 +1,160 @@
+SCANLAB RTC SCANalone Software 'Liesmich'
+
+***************************************************************************
+
+Die RTC SCANalone Standalone-Karte in Kombination mit ihren Software-
+Treibern ermöglicht eine PC-unabhängige Ansteuerung von Scan-Systemen und
+Lasern in Echtzeit.
+
+Die Softwaretreiber sind für die Microsoft-Betriebssysteme
+WINDOWS 8 / 7 / Vista / XP / 2000 / ME oder WINDOWS 98 entworfen.
+
+Dateien des RTC SCANalone-Software-Pakets werden im folgenden
+aufgelistet und die Installation der Treiber, sowie der zugehörigen
+DLL-Files im Detail beschrieben. Weitere Anleitungen für einen
+erfolgreichen Betrieb der RTC SCANalone-Karte finden Sie im
+RTC SCANalone-Handbuch.
+
+***************************************************************************
+
+Hersteller
+        SCANLAB AG
+        Siemensstraße 2a 
+        82178 Puchheim
+        Deutschland
+
+        Tel.    + 49 (89) 800 746-0
+        Fax:    + 49 (89) 800 746-199
+
+        info@scanlab.de
+        www.scanlab.de
+
+***************************************************************************
+
+Lieferumfang
+
+Die RTC SCANalone-Software beinhaltet die folgenden Dateien:
+
+1. Lieferumfang- und Installations-Beschreibung
+   Readme.txt           Beschreibung in englischer Sprache
+   Liesmich.txt         diese Datei
+
+2. Korrekturfiles
+   cor_1to1.ctb         1:1 Korrekturfile (ohne Feldkorrektur)
+   D2_n.ctb             (optionales) 2D-Korrekturfile
+                        n:      Korrekturfile-Nummer
+                        -----------------------------------------------
+                        Frühere 2D-Korrekturfiles wurden mit
+                                XXYYYZZZ.ctb bezeichnet, wobei
+                        XX:     Apertur in [mm]
+                        YYY:    Brennweite des Objektivs in [mm]
+                        ZZZ:    Kalibrierungsfaktor K in [Bits pro mm]
+                                (im Bildfeld)
+                        -----------------------------------------------
+   D2_n_ReadMe.txt      (otionales) ReadMe-File mit einer Beschreibung
+                        des zugehörigen Korrekturfiles inklusive
+                        Kalibrierungsfaktor K in [Bits pro mm]
+   D3_n.ctb             (optionales) 3D-Korrekturfile
+                        n:      Korrekturfile-Nummer
+   D3_n_ReadMe.txt      (otionales) ReadMe-File mit einer Beschreibung
+                        des zugehörigen Korrekturfiles inklusive
+                        Kalibrierungsfaktor K in [Bits pro mm]
+
+3. Demo-Files
+   Demo.cpp             RTC SCANalone Demoprogramm für Visual C++
+
+4. WINDOWS-Treiber für WINDOWS 2000 / ME and WINDOWS 98 und für
+                        32-Bit WINDOWS 8 / 7 / Vista / XP
+   SCANalone4.inf       Treiber-Installations-Datei
+   SLusb98.SYS          Treiber-Datei für WINDOWS 98
+   SLusbWDM.SYS         32-Bit Treiber-Datei für WINDOWS 8 / 7 / Vista /
+                        XP / 2000 / ME
+
+5. WINDOWS-Treiber für 64-Bit WINDOWS 8 / 7 / Vista / XP
+   slusbdrvx64.cat      signierte Katalog-Datei
+   SLUSBDRVx64.inf      Treiber-Installations-Datei
+   SLUSBDRVx64.sys      signierte 64-Bit Treiber-Datei
+
+   Beachten Sie, der Signaturgeber signierter Dateien lautet:
+   "SCANLAB AG".
+
+6. HPGL Converter Programm
+   HPGL Demo-Applikation (benötigt die DLL im selben Verzeichnis!)
+
+7. SCANalone-Files
+   SCANalone4.DLL       RTC SCANalone dynamische Link-Library
+
+8. Utility-Files
+
+ - für C:  
+   SCANalone4.lib       Visual C++ Import Library zum impliziten Linken
+                        der DLL
+   SCANalone4expl.cpp   C-Funktionen zum DLL-Handling für das explizite
+                        Linken
+   SCANalone4expl.h     C-Funktionsprototypen der RTC SCANalone zum
+                        expliziten Linken der DLL
+   SCANalone4impl.h     C-Funktionsprototypen der RTC SCANalone zum
+                        impliziten Linken der DLL
+
+ - für Basic:
+   SCANalone4Import.bas Importdeklarationen für Visual Basic
+
+ - für Visual Basic .NET:
+   SCANalone4Import.vb Importdeklarationen für Visual Basic .NET
+
+ - für Delphi:
+   SCANalone4Import.pas Importdeklarationen für Delphi
+
+***************************************************************************
+
+Installations-Beschreibung
+
+
+WINDOWS 8 Installation
+
+Folgendes ist durchzuführen, um die RTC SCANalone für Microsofts WINDOWS 8
+installiert zu bekommen.
+
+1. Schließen Sie die RTC SCANalone an einen USB-Port Ihres PC's.
+2. Starten Sie den Computer.
+3. Rufen Sie den Gerätemanager auf. Finden Sie im vom Gerätemanager
+   dargestellten Geräte-Verzeichnis den Eintrag 'SCANalone RTC' und
+   aktualisieren Sie dessen Treiber mit Angabe des Verzeichnisses das
+   den RTC SCANalone Treiber für die entsprechende 32-Bit oder 64-Bit
+   WINDOWS-Version enthält.
+4. Kopieren Sie die DLL-Dateien SCANalone4.DLL in das Verzeichnis, aus dem
+   die Anwendungs-Software gestartet wird, oder ins WINDOWS-Verzeichnis.
+5. Kopieren Sie die Korrekturfile(s) (*.CTB) auf die Festplatte Ihres PCs
+   (bestehende Korrekturfiles können weiterhin genutzt werden; speziell
+   angepasste Korrekturfiles nicht überschreiben!). SCANLAB empfiehlt, diese
+   Dateien in dem Verzeichnis zu speichern, aus dem die Anwendungs-Software
+   gestartet wird.
+
+
+WINDOWS 7 / Vista / XP / 2000 / ME und WINDOWS 98 Installation
+
+Die Microsoft-Betriebssysteme WINDOWS 7 / Vista / XP / 2000 / ME und
+WINDOWS 98 erkennen die RTC SCANalone als neues Gerät. Wird die
+RTC SCANalone zum ersten Mal über die USB-Verbindung an den PC
+angeschlossen, so startet automatisch ein Windows-Installationsprogramm.
+
+1. Schließen Sie die RTC SCANalone an einen USB-Port Ihres PC's.
+2. Starten Sie den Computer.
+3. Folgen Sie den Anweisungen des Windows-Installationsprogramms.
+   Spezifizieren Sie dabei das Verzeichnis, in dem sich die
+   RTC SCANalone-Treiber für die entsprechende 32-Bit oder 64-Bit
+   WINDOWS-Version befinden.
+4. Kopieren Sie die DLL-Datei SCANalone4.DLL in das Verzeichnis, aus dem
+   die Anwendungs-Software gestartet wird, oder ins WINDOWS-Verzeichnis.
+5. Kopieren Sie die Korrekturfile(s) (*.CTB) auf die Festplatte Ihres PCs
+   (bestehende Korrekturfiles können weiterhin genutzt werden; speziell
+   angepasste Korrekturfiles nicht überschreiben!). SCANLAB empfiehlt,
+   diese Dateien in dem Verzeichnis zu speichern, aus dem die Anwendungs-
+   Software gestartet wird.
+
+***************************************************************************
+
+Weitere Anleitungen für einen erfolgreichen Betrieb der
+RTC SCANalone-Karte finden Sie im RTC SCANalone-Handbuch.
+
+***************************************************************************

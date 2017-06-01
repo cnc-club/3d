@@ -1,0 +1,13 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys 
+
+import subprocess
+
+
+
+print sys.argv
+i = int(float(sys.argv[1]))
+
+f = "/home/cnc/linuxcnc/nc_files/3dlms-layers/%04d.ngc"%i
+subprocess.call(["/home/cnc/Рабочий стол/3dlms/scanlab/scanalone.py", f])

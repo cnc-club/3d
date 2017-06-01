@@ -1,0 +1,10 @@
+# Include your customized HAL commands here
+# The commands in this file are run after the AXIS GUI (including PyVCP panel) starts
+
+sets spindle-at-speed true
+net powder		<= gladevcp.powder		=> halui.mdi-command-00
+net rackel		<= gladevcp.rackel		=> halui.mdi-command-01
+net layer		<= gladevcp.layer		=> halui.mdi-command-02
+net layer_mm	<= gladevcp.layer_mm	=> motion.analog-in-00
+net pow_n		<= gladevcp.pow_n		=> motion.analog-in-01
+

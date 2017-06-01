@@ -1,0 +1,42 @@
+# -*- coding: utf8 -*-
+
+from TOwen import Owen
+from TSystem import MySerial
+from time import *
+#создаем последовательный порт
+
+
+
+try:
+    #COM = MySerial.ComPort(11, 9600, timeout=1)#открываем COM12 (нумерация портов начинается с 0)
+	COM = MySerial.ComPort("/dev/ttyUSB0", 9600, timeout=1)#открываем COM1 (нумерация портов начинается с 0)
+except:
+    raise Exception('Error openning port!')
+
+#COM.LoggingIsOn=True#включаем логирование в файл
+
+#создаем устройство
+#owenDev=Owen.Owen(None,16);#тестовые данные
+owenDev=Owen.OwenDevice(COM,16);#настоящий порт
+
+#owenDev.Debug=True#включем отладочные сообщения
+
+#Имя устройства
+#devName = owenDev.GetDeviceName()
+#print 'Device name: {}'.format(devName)
+#Прошивка
+#result = owenDev.GetFirmwareVersion()
+#print 'Firmware version: {}'.format(result)
+
+i=0
+while 1:
+	i += 1
+	try:
+		print owenDev.GetIEEE32(owenDev.GetHash('rEAd'),0,withTime=True)["value"]
+	except:
+		print "Ошибочное значение", "." if i%2 else ""
+		
+	sleep(0.2)
+
+
+

@@ -1,0 +1,103 @@
+; File: SLUSBDRVx64.inf
+;-----------------------------------------------------------------------------
+;                           Driver installation file
+;                    for SCANLAB's SCANalone interface board
+;                    for 64-Bit Windows XP/Vista/7 or better
+;
+; Copyright (c) 2012 by SCANLAB AG.                       All rights reserved.
+;
+;  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+;  KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+;  IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
+;  PURPOSE.
+;-----------------------------------------------------------------------------
+
+[Version]
+Signature="$Windows NT$"
+Provider=%S_Provider%
+DriverVer=11/30/2011,2.60.0.0
+CatalogFile=SLUSBDRVx64.cat
+Class=SCANLAB
+ClassGUID={D6797410-1514-11d4-BBA5-0050DA39AF40}
+
+[ClassInstall32] 
+AddReg=AddReg_ClassInstall
+
+[AddReg_ClassInstall]
+HKR,,,,"%S_DeviceClassDisplayName%"
+HKR,,Icon,,-5
+HKR,,DeviceCharacteristics,0x10001,0x100
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)(A;;GRGW;;;BU)"
+
+[Manufacturer]
+%S_Mfg%=Devices, ntamd64
+
+[Devices.ntamd64]
+%S_DeviceDesc%=Install, USB\VID_0451&PID_9001&REV_0505
+
+[Install.ntamd64]
+CopyFiles=CopyFiles_sys_x64
+
+[Install.ntamd64.Services]
+AddService = %S_DriverName_x64%, 0x00000002, AddService_x64, EventLog_x64
+
+[Install.ntamd64.HW]
+AddReg=AddReg_HW
+
+[AddService_x64]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\%S_DriverName_x64%.sys
+
+[EventLog_x64]
+AddReg=EventLog_x64_AddReg
+
+[EventLog_x64_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\%S_DriverName_x64%.sys"
+HKR,,TypesSupported,  %REG_DWORD%,7
+
+[AddReg_HW]
+HKR,,CleanupWizard_DeviceIdentString,%REG_SZ%,"{DAB6A146-D93E-48ab-B3E5-374AB8FFF277}"
+HKR,,DriverUserInterfaceGuid,%REG_SZ%,"{A0DA6B84-F505-4b82-A370-F2915B076EC7}"
+
+HKR,,PowerStateOnOpen,      %REG_DWORD%, 0
+HKR,,PowerStateOnClose,     %REG_DWORD%, 0
+HKR,,MinPowerStateUsed,     %REG_DWORD%, 3
+HKR,,MinPowerStateUnused,   %REG_DWORD%, 3
+HKR,,EnableRemoteWakeup,    %REG_DWORD%, 0
+HKR,,AbortPipesOnPowerDown, %REG_DWORD%, 1
+HKR,,UnconfigureOnClose,    %REG_DWORD%, 1
+HKR,,ResetDeviceOnClose,    %REG_DWORD%, 0
+HKR,,MaxIsoPackets,         %REG_DWORD%, 512
+HKR,,ShortTransferOk,       %REG_DWORD%, 1
+HKR,,RequestTimeout,        %REG_DWORD%, 1000
+HKR,,SuppressPnPRemoveDlg,  %REG_DWORD%, 1
+HKR,,ConfigDescMinQuerySize,%REG_DWORD%, 0
+
+[CopyFiles_sys_x64]
+SLUSBDRVx64.sys,,,0x00000004
+
+[DestinationDirs]
+DefaultDestDir =    12   ; %windir%\system32\drivers 
+CopyFiles_sys_x64 = 12
+
+[SourceDisksNames.amd64]
+1=%S_DiskName%,,
+
+[SourceDisksFiles.amd64]
+SLUSBDRVx64.sys=1,,,0x00000004
+
+[Strings]
+REG_SZ         = 0x00000000
+REG_MULTI_SZ   = 0x00010000
+REG_EXPAND_SZ  = 0x00020000
+REG_BINARY     = 0x00000001
+REG_DWORD      = 0x00010001
+
+S_Provider = "SCANLAB AG"
+S_Mfg="SCANLAB AG"
+S_DeviceClassDisplayName="SCANLAB"
+S_DeviceDesc="SCANLAB USB SCANalone4 : Real Time Scanner Controller"
+S_DiskName="SCANalone4 Disk"
+S_DriverName_x64="SLUSBDRVx64"
